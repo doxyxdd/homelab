@@ -1,0 +1,5 @@
+# /etc/nut/upsd.users
+# ENV: UPS_PASSWORD
+[upsmon]
+	password = $UPS_PASSWORD
+	upsmon   = slave
