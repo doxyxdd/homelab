@@ -20,8 +20,11 @@ nut-scanner -U
 Setup files
 
 ```sh
-sudo cp ./nut/nut.conf /etc/nut/nut.conf
-
+sudo cp ./nut/server/nut.conf /etc/nut/nut.conf
+sudo cp ./nut/server/ups.conf /etc/nut/ups.conf
+export UPS_PASSWORD=REPLACE_ME
+sudo envsubst < ./nut/server/upsd.template.users > /etc/nut/upsd.users
+sudo envsubst < ./nut/server/upsmon.template.conf > /etc/nut/upsmon.conf
 ```
 
 ## Client Guide
