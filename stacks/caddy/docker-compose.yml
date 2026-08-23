@@ -7,8 +7,8 @@ services:
       - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
+      - /home/doxy/mnt/caddy/data:/data
+      - /home/doxy/mnt/caddy/config:/config
       - /var/log/caddy:/var/log/caddy
     env_file:
       - path: ./env
