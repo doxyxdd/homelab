@@ -22,9 +22,12 @@ Setup files
 ```sh
 sudo cp ./nut/server/nut.conf /etc/nut/nut.conf
 sudo cp ./nut/server/ups.conf /etc/nut/ups.conf
+sudo cp ./nut/server/upsd.conf /etc/nut/upsd.conf
 export UPS_PASSWORD=REPLACE_ME
-sudo envsubst < ./nut/server/upsd.template.users > /etc/nut/upsd.users
-sudo envsubst < ./nut/server/upsmon.template.conf > /etc/nut/upsmon.conf
+envsubst < ./nut/server/upsd.template.users > /etc/nut/upsd.users
+envsubst < ./nut/server/upsmon.template.conf > /etc/nut/upsmon.conf
+systemctl enable --now nut-server nut-monitor
+upsc ups@localhost   # verify UPS data is readable
 ```
 
 ## Client Guide
