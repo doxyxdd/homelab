@@ -8,7 +8,7 @@ services:
       - PGID=1000
       - TZ=America/Los_Angeles
     volumes:
-      - /home/doxy/mnt/radarr/config:/config
+      - /home/apps/mnt/radarr/config:/config
       - /mnt/media:/media 
     ports:
       - 7878:7878
@@ -20,7 +20,7 @@ services:
     ports:
       - '6868:6868'
     volumes:
-      - /home/doxy/mnt/radarr/config:/config
+      - /home/apps/mnt/radarr/config:/config
     environment:
       - PUID=1000
       - PGID=1000
@@ -34,7 +34,7 @@ services:
     ports:
       - "8080:8080"        # qBittorrent web UI (published via gluetun)
     volumes:
-      - /home/doxy/mnt/gluetun/data:/gluetun
+      - /home/apps/mnt/gluetun/data:/gluetun
     environment:
       VPN_SERVICE_PROVIDER: protonvpn
       VPN_TYPE: wireguard
@@ -58,6 +58,6 @@ services:
       PGID: "1000"
       WEBUI_PORT: "8080"
     volumes:
-      - /home/doxy/mnt/qbittorrent/config/:/config
+      - /home/apps/mnt/qbittorrent/config/:/config
       - /mnt/media/downloads:/mnt/media/downloads
     restart: unless-stopped
