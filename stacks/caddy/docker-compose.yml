@@ -1,0 +1,21 @@
+# /opt/stacks/caddy/docker-compose.yml
+services:
+  caddy:
+    build: .
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+      - /var/log/caddy:/var/log/caddy
+    env_file:
+      - path: ./env
+        required: true
+    # environment:
+    #   PORKBUN_API_KEY: <api-key>
+    #   PORKBUN_SECRET_API_KEY: <secret-api-key>
+    #   CROWDSEC_BOUNCER_KEY: <bouncer-api-key>
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
