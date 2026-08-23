@@ -11,7 +11,7 @@ services:
       - /home/doxy/mnt/caddy/config:/config
       - /var/log/caddy:/var/log/caddy
     env_file:
-      - path: ./env
+      - path: ./.env
         required: true
     # environment:
     #   PORKBUN_API_KEY: <api-key>
