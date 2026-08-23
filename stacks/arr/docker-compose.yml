@@ -9,7 +9,7 @@ services:
     ports:
       - "8080:8080"        # qBittorrent web UI (published via gluetun)
     volumes:
-      - gluetun_data:/gluetun
+      - /home/doxy/mnt/gluetun/data:/gluetun
     environment:
       VPN_SERVICE_PROVIDER: protonvpn
       VPN_TYPE: wireguard
