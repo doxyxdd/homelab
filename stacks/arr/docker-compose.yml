@@ -1,5 +1,30 @@
 # /opt/stacks/arr/docker-compose.yml (gluetun + qbittorrent excerpt)
 services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /home/doxy/mnt/radarr/config:/config
+      - /mnt/media:/media 
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+  profilarr:
+    # See "Release channels" below for available tags.
+    image: ghcr.io/dictionarry-hub/profilarr:latest
+    container_name: profilarr
+    ports:
+      - '6868:6868'
+    volumes:
+      - /home/doxy/mnt/radarr/config:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
   gluetun:
     image: qmcgaw/gluetun:latest
     cap_add:
@@ -7,7 +32,7 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     ports:
-      - "8081:8081"        # qBittorrent web UI (published via gluetun)
+      - "8080:8080"        # qBittorrent web UI (published via gluetun)
     volumes:
       - /home/doxy/mnt/gluetun/data:/gluetun
     environment:
