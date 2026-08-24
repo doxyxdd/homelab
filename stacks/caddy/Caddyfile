@@ -56,10 +56,10 @@ grafana.doxy.moe {
 
 vault.doxy.moe {
   import secured_site
-  reverse_proxy apps.lan:8585
+  reverse_proxy apps.lab:8585
 }
 
 youtube.doxy.moe {
     import secured_site
-    reverse_proxy apps.lan:8000
+    reverse_proxy apps.lab:8000
 }
