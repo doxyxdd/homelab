@@ -1,0 +1,69 @@
+services:
+  tubearchivist:
+    container_name: tubearchivist
+    restart: unless-stopped
+    image: bbilly1/tubearchivist
+    ports:
+      - 8000:8000
+    volumes:
+      - media:/youtube
+      - cache:/cache
+    environment:
+      - ES_URL=http://archivist-es:9200     # needs protocol e.g. http and port
+      - REDIS_CON=redis://archivist-redis:6379
+      - HOST_UID=1000
+      - HOST_GID=1000
+      - TA_HOST=https://youtube.doxy.moe  # set your host name with protocol and port
+      - TA_USERNAME=admin           # your initial TA credentials
+      - TZ=America/Los_Angeles                # set your time zone
+      - TA_PASSWORD_FILE: /run/secrets/ta_password
+      - ELASTIC_PASSWORD: /run/secrets/es_password
+      - TA_LOGIN_AUTH_MODE: local
+
+    secrets:
+      - ta_password
+      - es_password
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health/"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      - archivist-es
+      - archivist-redis
+  archivist-redis:
+    image: redis
+    container_name: archivist-redis
+    restart: unless-stopped
+    expose:
+      - "6379"
+    volumes:
+      - redis:/data
+    depends_on:
+      - archivist-es
+  archivist-es:
+    image: bbilly1/tubearchivist-es         # only for amd64, or use official es 8.19.0
+    container_name: archivist-es
+    restart: unless-stopped
+    environment:
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "xpack.security.enabled=true"
+      - "discovery.type=single-node"
+      - "path.repo=/usr/share/elasticsearch/data/snapshot"
+      - ELASTIC_PASSWORD_FILE: /run/secrets/es_password
+    secrets:
+      - es_password
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es:/usr/share/elasticsearch/data    # check for permission error when using bind mount, see readme
+    expose:
+      - "9200"
+secrets:
+  ta_password:
+    file: ./ta_password.txt
+  es_password:
+    file: ./es_password.txt

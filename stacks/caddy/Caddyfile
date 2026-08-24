@@ -59,3 +59,7 @@ vault.doxy.moe {
   reverse_proxy apps.lan:8585
 }
 
+youtube.doxy.moe {
+    import secured_site
+    reverse_proxy apps.lan:8000
+}
