@@ -82,17 +82,17 @@ youtube.doxy.moe {
 
 prowlarr.doxy.moe {
 	import local_only
-	reverse_proxy apps.lab:9696
+	reverse_proxy http://apps.lab:9696
 }
 
 radarr.doxy.moe {
 	import local_only
-	reverse_proxy apps.lab:7878
+	reverse_proxy http://apps.lab:7878
 }
 
 profilarr.doxy.moe {
 	import local_only
-	reverse_proxy apps.lab:6868
+	reverse_proxy http://apps.lab:6868
 }
 
 qbittorrent.doxy.moe {
