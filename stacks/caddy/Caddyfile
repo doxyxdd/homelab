@@ -1,65 +1,77 @@
 {
-  acme_dns porkbun {
-    api_key {env.PORKBUN_API_KEY}
-    api_secret_key {env.PORKBUN_SECRET_API_KEY}
-  }
+	acme_dns porkbun {
+		api_key {env.PORKBUN_API_KEY}
+		api_secret_key {env.PORKBUN_SECRET_API_KEY}
+	}
 
-  order crowdsec first
-  crowdsec {
-    api_url http://host.docker.internal:8080
-    api_key {env.CROWDSEC_BOUNCER_KEY}
-  }
+	order crowdsec first
+	crowdsec {
+		api_url http://host.docker.internal:8080
+		api_key {env.CROWDSEC_BOUNCER_KEY}
+	}
 }
 
 (secured_site) {
-  log {
-    output file /var/log/caddy/access.log {
-      roll_size 100mb
-      roll_keep 5
-    }
-  }
-  crowdsec
+	log {
+		output file /var/log/caddy/access.log {
+			roll_size 100mb
+			roll_keep 5
+		}
+	}
+	crowdsec
+}
+
+(local-only) {
+	@allowed remote_ip 192.168.1.0/24 192.168.2.0/24
+	@denied not @allowed
+	abort @denied
+	log {
+		output file /var/log/caddy/access.log {
+			roll_size 100mb
+			roll_keep 5
+		}
+	}
 }
 
 # Authentik is on the same VM — use Docker container name directly
 auth.doxy.moe {
-  import secured_site
-  reverse_proxy authentik-server:9000
+	import secured_site
+	reverse_proxy authentik-server:9000
 }
 
 # Jellyfin LXC — route by .lan hostname
 jellyfin.doxy.moe {
-  import secured_site
-  reverse_proxy jellyfin.lab:8096
+	import secured_site
+	reverse_proxy jellyfin.lab:8096
 }
 
 # Services on apps VM — route by .lan hostname
 seerr.doxy.moe {
-  import secured_site
-  reverse_proxy apps.lab:5055
+	import secured_site
+	reverse_proxy apps.lab:5055
 }
 
 immich.doxy.moe {
-  import secured_site
-  reverse_proxy apps.lab:2283
+	import secured_site
+	reverse_proxy apps.lab:2283
 }
 
 syncthing.doxy.moe {
-  import secured_site
-  reverse_proxy apps.lab:8384
+	import secured_site
+	reverse_proxy apps.lab:8384
 }
 
 grafana.doxy.moe {
-  import secured_site
-  reverse_proxy observer.lab:3000
+	import secured_site
+	reverse_proxy observer.lab:3000
 }
 
 vault.doxy.moe {
-  import secured_site
-  reverse_proxy apps.lab:8585
+	import secured_site
+	reverse_proxy apps.lab:8585
 }
 
 youtube.doxy.moe {
-    import secured_site
-    reverse_proxy apps.lab:8000
+	import secured_site
+	reverse_proxy apps.lab:8000
 }
