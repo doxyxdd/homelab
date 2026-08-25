@@ -22,9 +22,13 @@
 }
 
 (local_only) {
-	@allowed remote_ip 192.168.1.0/24 192.168.2.0/24
-	@denied not @allowed
+	
+	@denied {
+		not remote_ip 192.168.1.0/24 192.168.2.0/24
+	}
+
 	abort @denied
+
 	log {
 		output file /var/log/caddy/access.log {
 			roll_size 100mb
