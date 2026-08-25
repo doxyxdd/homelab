@@ -37,7 +37,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Los_Angeles
-      - ORIGIN=https://profilar.doxy.moe
+      - ORIGIN=https://profilarr.doxy.moe
   gluetun:
     image: qmcgaw/gluetun:latest
     cap_add:
