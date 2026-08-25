@@ -21,7 +21,7 @@
 	crowdsec
 }
 
-(local-only) {
+(local_only) {
 	@allowed remote_ip 192.168.1.0/24 192.168.2.0/24
 	@denied not @allowed
 	abort @denied
@@ -74,4 +74,19 @@ vault.doxy.moe {
 youtube.doxy.moe {
 	import secured_site
 	reverse_proxy apps.lab:8000
+}
+
+prowlarr.doxy.moe {
+	import local_only
+	reverse_proxy apps.lab:9696
+}
+
+radarr.doxy.moe {
+	import local_only
+	reverse_proxy apps.lab:7878
+}
+
+profilarr.doxy.moe {
+	import local_only
+	reverse_proxy apps.lab:6868
 }
