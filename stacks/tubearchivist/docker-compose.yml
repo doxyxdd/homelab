@@ -6,23 +6,16 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - media:/youtube
-      - cache:/cache
+      - /mnt/youtube:/youtube
+      - /home/apps/mnt/tubearchivist/cache:/cache
     environment:
       - ES_URL=http://archivist-es:9200     # needs protocol e.g. http and port
       - REDIS_CON=redis://archivist-redis:6379
-      - HOST_UID=1000
-      - HOST_GID=1000
       - TA_HOST=https://youtube.doxy.moe  # set your host name with protocol and port
       - TA_USERNAME=admin           # your initial TA credentials
       - TZ=America/Los_Angeles                # set your time zone
-      - TA_PASSWORD_FILE: /run/secrets/ta_password
-      - ELASTIC_PASSWORD: /run/secrets/es_password
-      - TA_LOGIN_AUTH_MODE: local
-
-    secrets:
-      - ta_password
-      - es_password
+      - TA_LOGIN_AUTH_MODE=local
+    env_file: ".env"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/health/"]
       interval: 2m
@@ -39,7 +32,7 @@ services:
     expose:
       - "6379"
     volumes:
-      - redis:/data
+      - /home/apps/mnt/tubearchivist/redis-data:/data
     depends_on:
       - archivist-es
   archivist-es:
@@ -51,19 +44,12 @@ services:
       - "xpack.security.enabled=true"
       - "discovery.type=single-node"
       - "path.repo=/usr/share/elasticsearch/data/snapshot"
-      - ELASTIC_PASSWORD_FILE: /run/secrets/es_password
-    secrets:
-      - es_password
+    env_file: ".env"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
-      - es:/usr/share/elasticsearch/data    # check for permission error when using bind mount, see readme
+      - /home/apps/mnt/tubearchivist/es-data:/usr/share/elasticsearch/data    # check for permission error when using bind mount, see readme
     expose:
       - "9200"
-secrets:
-  ta_password:
-    file: ./ta_password.txt
-  es_password:
-    file: ./es_password.txt
