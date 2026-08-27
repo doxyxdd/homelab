@@ -1,5 +1,18 @@
 # /opt/stacks/arr/docker-compose.yml (gluetun + qbittorrent excerpt)
 services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    volumes:
+      - /home/apps/mnt/bazarr/config:/config
+      - /mnt/media:/media
+    ports:
+      - 6767:6767
+    restart: unless-stopped
   shoko_server:
     shm_size: 256m
     container_name: shoko_server

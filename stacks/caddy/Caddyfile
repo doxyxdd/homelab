@@ -105,6 +105,11 @@ shoko.doxy.moe {
 	reverse_proxy http://apps.lab:8111
 }
 
+bazarr.doxy.moe {
+	import local_only
+	reverse_proxy http://apps.lab:6767
+}
+
 qbittorrent.doxy.moe {
 	import local_only
 	reverse_proxy apps.lab:8080
