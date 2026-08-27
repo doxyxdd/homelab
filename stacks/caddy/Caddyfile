@@ -95,6 +95,16 @@ profilarr.doxy.moe {
 	reverse_proxy http://apps.lab:6868
 }
 
+sonarr.doxy.moe {
+	import local_only
+	reverse_proxy http://apps.lab:8989
+}
+
+shoko.doxy.moe {
+	import local_only
+	reverse_proxy http://apps.lab:8111
+}
+
 qbittorrent.doxy.moe {
 	import local_only
 	reverse_proxy apps.lab:8080
