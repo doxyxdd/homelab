@@ -1,0 +1,13 @@
+services:
+  filebrowser:
+    container_name: filebrowser
+    image: filebrowser/filebrowser:latest
+    volumes:
+      - /home/apps/mnt/bazarr/config:/config
+      - /mnt/media:/srv
+      - /home/apps/mnt/filebrowser/database:/database
+      - /home/apps/mnt/filebrowser/config:/config
+    ports:
+      - 8088:80
+    environment:
+      - FB_TOKEN_EXPIRATION_TIME="24h"
