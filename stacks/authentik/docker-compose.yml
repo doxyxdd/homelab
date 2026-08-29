@@ -19,6 +19,7 @@ services:
     volumes:
     - database:/var/lib/postgresql/data
   server:
+    container_name: authentik-server
     command: server
     depends_on:
       postgresql:
@@ -66,3 +67,6 @@ services:
 volumes:
   database:
     driver: local
+networks:
+  gatekeeper-net:
+    external: true
