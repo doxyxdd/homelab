@@ -19,6 +19,8 @@ services:
     #   CROWDSEC_BOUNCER_KEY: <bouncer-api-key>
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    networks:
+      - gatekeeper-net
 networks:
   gatekeeper-net:
     external: true
