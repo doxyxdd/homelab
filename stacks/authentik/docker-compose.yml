@@ -29,12 +29,13 @@ services:
     env_file:
     - .env
     environment:
+      AUTHENTIK_WEB__BASE_URL: "https://auth.doxy.moe"
+      AUTHENTIK_LISTEN__TRUSTED_PROXY_CIDRS: "172.20.0.0/16"
       AUTHENTIK_POSTGRESQL__HOST: postgresql
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
       AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
-      AUTHENTIK_LISTEN__TRUSTED_PROXY_CIDRS: "192.168.2.0/24"
     image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2026.8.0}
     ports:
       - ${COMPOSE_PORT_HTTP:-9000}:9000
