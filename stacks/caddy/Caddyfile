@@ -48,9 +48,9 @@ jellyfin.doxy.moe {
 	reverse_proxy jellyfin.lab:8096
 }
 
-media-files.doxy.moe {
+files.doxy.moe {
 	import secured_site
-	reverse_proxy apps.lab:8088
+	reverse_proxy http://apps.lab:8900
 }
 
 # Services on apps VM — route by .lan hostname

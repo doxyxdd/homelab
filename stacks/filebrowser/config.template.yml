@@ -1,5 +1,6 @@
 http:
   trustProxyHeaders: true
+  externalUrl: 'https://files.doxy.moe' # if you plan to share externally, share links will be generated with this url
 server:
   database:
     path: "data/filebrowser.sqlite"
@@ -17,7 +18,6 @@ server:
     - path: "/home/filebrowser" # mount the docker home folder for convenience
       name: Backend
     # Add your sources here.
-  externalUrl: 'https://files.doxy.moe' # if you plan to share externally, share links will be generated with this url
   maxArchiveSize: 50 # maxiumum pre-archive size users are allowed to download at once.
 auth:
   tokenExpirationHours: 2
