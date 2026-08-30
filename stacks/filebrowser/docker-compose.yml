@@ -3,7 +3,7 @@ services:
     image: gtstef/filebrowser:beta
     container_name: filebrowser
     ports:
-      - 80:8900
+      - 8900:80
     restart: unless-stopped
     # user: filebrowser
     volumes:
