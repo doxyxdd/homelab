@@ -65,6 +65,12 @@ services:
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
       AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
+      AUTHENTIK_EMAIL__HOST: smtp.gmail.com
+      AUTHENTIK_EMAIL__PORT: 465
+      AUTHENTIK_EMAIL__USERNAME: doxy.homelab@gmail.com
+      # AUTHENTIK_EMAIL__PASSWORD: APP PASSWORD FROM GOOGLE ACCOUNT
+      AUTHENTIK_EMAIL__USE_SSL: true
+      AUTHENTIK_EMAIL__FROM: doxy.homelab@gmail.com
       AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
     image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2026.8.0}
     restart: unless-stopped
