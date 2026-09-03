@@ -8,6 +8,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./homarr/appdata:/appdata
+    env_file:
+      - .env
     environment:
       - AUTH_DOMAIN=auth.doxy.moe
       - OIDC_SLUG=homarr
