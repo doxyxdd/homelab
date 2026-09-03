@@ -7,13 +7,10 @@ services:
     image: ghcr.io/homarr-labs/homarr:latest
     restart: unless-stopped
     volumes:
-      - ./homarr/appdata:/appdata
+      - /home/doxy/mnt/homarr/appdata:/appdata
     env_file:
       - .env
     environment:
-      - AUTH_DOMAIN=auth.doxy.moe
-      - OIDC_SLUG=homarr
-      - FQDN=homarr.doxy.moe
       - BASE_URL=https://${FQDN}
       - NEXTAUTH_URL=https://${FQDN}
       - ADMIN_GROUP=homarr-admins
