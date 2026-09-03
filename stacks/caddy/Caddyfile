@@ -89,6 +89,15 @@ youtube.doxy.moe {
 	reverse_proxy apps.lab:8000
 }
 
+proxmox.doxy.moe {
+	import local_only
+	reverse_proxy pve.lab:8006 {
+		transport http {
+			tls_insecure_skip_verify
+		}
+	}
+}
+
 prowlarr.doxy.moe {
 	import local_only
 	reverse_proxy http://apps.lab:9696
