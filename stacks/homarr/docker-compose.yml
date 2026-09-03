@@ -1,0 +1,30 @@
+#---------------------------------------------------------------------#
+#     Homarr - A simple, yet powerful dashboard for your server.      #
+#---------------------------------------------------------------------#
+services:
+  homarr:
+    container_name: homarr
+    image: ghcr.io/homarr-labs/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - ./homarr/appdata:/appdata
+    environment:
+      - AUTH_DOMAIN=auth.doxy.moe
+      - OIDC_SLUG=homarr
+      - FQDN=homarr.doxy.moe
+      - BASE_URL=https://${FQDN}
+      - NEXTAUTH_URL=https://${FQDN}
+      - ADMIN_GROUP=homarr-admins
+      - AUTH_PROVIDERS=oidc
+      - AUTH_OIDC_CLIENT_NAME=authentik
+      - AUTH_OIDC_AUTO_LOGIN=true
+      - AUTH_OIDC_GROUPS_ATTRIBUTE=groups
+      - AUTH_LOGOUT_REDIRECT_URL=https://${AUTH_DOMAIN}/application/o/${OIDC_SLUG}/end-session/
+      - TZ=America/Los_Angeles
+    ports:
+      - '7575:7575'
+    networks:
+      - gatekeeper-net
+networks:
+  gatekeeper-net:
+    external: true

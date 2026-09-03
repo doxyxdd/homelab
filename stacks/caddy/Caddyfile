@@ -48,6 +48,10 @@ jellyfin.doxy.moe {
 	reverse_proxy jellyfin.lab:8096
 }
 
+homarr.doxy.moe {
+	import secured_site
+	reverse_proxy http://homarr:7575
+}
 
 files.doxy.moe {
 	import secured_site
