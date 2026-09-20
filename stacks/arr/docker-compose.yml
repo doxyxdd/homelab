@@ -141,7 +141,7 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      WEBUI_PORT: "8085"
+      WEBUI_PORT: "8080"
     volumes:
       - /home/apps/mnt/qbittorrent/config/:/config
       - /mnt/media/downloads:/media/downloads
