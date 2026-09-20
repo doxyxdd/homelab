@@ -116,6 +116,7 @@ services:
       - /dev/net/tun:/dev/net/tun
     ports:
       - "8080:8080"        # qBittorrent web UI (published via gluetun)
+      - "8085:8085"        # sabnzbd
     volumes:
       - /home/apps/mnt/gluetun/data:/gluetun
     environment:
@@ -144,4 +145,27 @@ services:
     volumes:
       - /home/apps/mnt/qbittorrent/config/:/config
       - /mnt/media/downloads:/media/downloads
+    restart: unless-stopped
+
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+    ports:
+      - 8085:8080
+    volumes:
+      - /home/apps/mnt/sabnzbd/config:/config
+      - /mnt/media/usenet:/usenet
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1
+      start_period: 30s
+      timeout: 3s
+      interval: 30s
+      retries: 3
+    depends_on:
+      - gluetun
+    network_mode: "service:gluetun"
     restart: unless-stopped
