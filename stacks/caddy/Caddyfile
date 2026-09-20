@@ -133,7 +133,7 @@ qbittorrent.doxy.moe {
 	reverse_proxy apps.lab:8085
 }
 
-sabnzbd.doxy.moe {
+nzbget.doxy.moe {
 	import local_only
-	reverse_proxy apps.lab:8080
+	reverse_proxy apps.lab:6789
 }
