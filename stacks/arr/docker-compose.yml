@@ -116,7 +116,7 @@ services:
       - /dev/net/tun:/dev/net/tun
     ports:
       - "6789:6789"        # nzbget
-      - "8085:8085"        # qBittorrent web UI (published via gluetun)d
+      - "8080:8080"        # qBittorrent web UI (published via gluetun)d
     volumes:
       - /home/apps/mnt/gluetun/data:/gluetun
     environment:
