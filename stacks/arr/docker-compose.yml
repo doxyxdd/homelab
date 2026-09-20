@@ -115,8 +115,8 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     ports:
-      - "8080:8080"        # qBittorrent web UI (published via gluetun)
-      - "8085:8085"        # sabnzbd
+      - "8080:8080"        # sabnzb
+      - "8085:8085"        # qBittorrent web UI (published via gluetun)d
     volumes:
       - /home/apps/mnt/gluetun/data:/gluetun
     environment:
@@ -141,7 +141,7 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
-      WEBUI_PORT: "8080"
+      WEBUI_PORT: "8085"
     volumes:
       - /home/apps/mnt/qbittorrent/config/:/config
       - /mnt/media/downloads:/media/downloads
@@ -154,8 +154,6 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/Los_Angeles
-    ports:
-      - 8085:8080
     volumes:
       - /home/apps/mnt/sabnzbd/config:/config
       - /mnt/media/usenet:/usenet
