@@ -111,7 +111,7 @@ services:
   gluetun:
     image: qmcgaw/gluetun:latest
     cap_add:
-      - NET_ADMIN6789
+      - NET_ADMIN
     devices:
       - /dev/net/tun:/dev/net/tun
     ports:
