@@ -9,6 +9,7 @@ services:
     volumes:
       - /home/apps/mnt/filebrowser/data:/home/filebrowser/data
       - /mnt/filebrowser:/files
+      - /mnt/media:/media
       # - /other/dir:/dir # Add other sources
     environment:
       - "FILEBROWSER_CONFIG=data/config.yml" # using our config file at ./data/config.yml

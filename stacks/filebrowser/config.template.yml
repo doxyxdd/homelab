@@ -6,10 +6,6 @@ server:
     path: "data/filebrowser.sqlite"
   cacheDir: "data/tmp"
   sources:
-    - path: "/files/shared"
-      name: "Shared Files"
-      config:
-        defaultEnabled: true
     - path: "/files/users"
       name: My Files
       config:
@@ -22,6 +18,10 @@ server:
     - path: "/home/filebrowser" # mount the docker home folder for convenience
       name: Backend
     # Add your sources here.
+    - path: "/media"
+      name: "Media"
+      config:
+        defaultEnabled: false
   maxArchiveSize: 50 # maxiumum pre-archive size users are allowed to download at once.
 auth:
   tokenExpirationHours: 2
