@@ -53,6 +53,20 @@ homarr.doxy.moe {
 	reverse_proxy http://homarr:7575
 }
 
+romm.doxy.moe {
+	import secured_site
+  encode zstd gzip
+  header {
+    Strict-Transport-Security "max-age=31536000;"
+    X-XSS-Protection "1; mode=block"
+    X-Frame-Options "SAMEORIGIN"
+    X-Robots-Tag "noindex, nofollow"
+    -Server
+    -X-Powered-By
+  }
+  reverse_proxy http://apps.lab:9999
+}
+
 files.doxy.moe {
 	import secured_site
 	reverse_proxy http://apps.lab:8900
