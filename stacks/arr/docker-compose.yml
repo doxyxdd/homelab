@@ -119,6 +119,8 @@ services:
       - "8080:8080"        # qBittorrent web UI (published via gluetun)d
     volumes:
       - /home/apps/mnt/gluetun/data:/gluetun
+    env_file:
+      - .env.gluetun
     environment:
       VPN_SERVICE_PROVIDER: protonvpn
       VPN_TYPE: wireguard
